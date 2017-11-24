@@ -1,0 +1,3 @@
+/Users/shadowlegend/zaman/computer-graphic/sine-wave/CMakeFiles/rebuild_cache.dir
+/Users/shadowlegend/zaman/computer-graphic/sine-wave/CMakeFiles/edit_cache.dir
+/Users/shadowlegend/zaman/computer-graphic/sine-wave/CMakeFiles/sine-wave.dir

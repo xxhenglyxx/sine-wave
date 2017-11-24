@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/shadowlegend/zaman/computer-graphic/sine-wave/include/display/Display.cpp
+Display.h
+/Users/shadowlegend/zaman/computer-graphic/sine-wave/include/display/Display.h
+OpenGL/gl.h
+-
+GLUT/glut.h
+-
+string
+-
+iostream
+-
+
+/Users/shadowlegend/zaman/computer-graphic/sine-wave/include/display/Display.h
+GLUT/glut.h
+-
+string
+-
+
+/Users/shadowlegend/zaman/computer-graphic/sine-wave/src/main.cpp
+iostream
+-
+OpenGL/gl.h
+-
+GLUT/glut.h
+-
+math.h
+-
+display/Display.h
+-
+
+include/display/Display.h
+GLUT/glut.h
+-
+string
+-
+
