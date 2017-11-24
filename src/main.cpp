@@ -38,6 +38,25 @@ void drawPoint ( const float p1, const float p2 ) {
 
 }
 
+void drawText (
+    
+    const char text [],
+    const int size,
+    const GLint pos_x = 0,
+    const GLint pos_y = 0
+
+) {
+
+    glRasterPos2i ( pos_x, pos_y );
+
+    for ( int index = 0; index < size; index ++ ) {
+
+        glutBitmapCharacter ( GLUT_BITMAP_HELVETICA_18, text[ index ] );
+
+    }
+
+}
+
 void drawTriangle (
 
     const double c1x,
@@ -63,8 +82,7 @@ void drawTriangle (
 
 void drawGrid ( const int WIDTH, const int HEIGHT, const int UNIT ) {
 
-    const int unit_width_apart = ( WIDTH / UNIT ) * 2;
-    int index = - unit_width_apart;
+    int unit_distance = 0;
 
     glBegin ( GL_LINES );
 
@@ -74,6 +92,51 @@ void drawGrid ( const int WIDTH, const int HEIGHT, const int UNIT ) {
         glVertex2f ( WIDTH, 0 );
 
     glEnd ();
+
+    while ( unit_distance < WIDTH ) {
+
+        const char * text = std::to_string ( unit_distance ).c_str ();
+        const char * text2 = std::to_string ( - unit_distance ).c_str ();
+
+        glColor3d ( 1.0, 1.0, 1.0 );
+
+        glBegin ( GL_LINES );
+
+            glVertex2f ( unit_distance, 16 );
+            glVertex2f ( unit_distance, -16 );
+
+        glEnd ();
+
+        drawText ( text, 3, unit_distance - 30, - 70 );
+
+        glBegin ( GL_LINES );
+
+            glVertex2f ( 16, unit_distance );
+            glVertex2f ( -16, unit_distance );
+        
+        glEnd ();
+
+        drawText ( text, 3, 50, unit_distance - 10 );
+
+        glBegin ( GL_LINES );
+
+            glVertex2f ( - unit_distance, 16 );
+            glVertex2f ( - unit_distance, -16 );
+
+        glEnd ();
+
+        // drawText ( std::to_string ( - unit_distance ).c_str(), 3, - unit_distance - 30, -50 );
+
+        glBegin ( GL_LINES );
+
+            glVertex2f ( 16, - unit_distance );
+            glVertex2f ( -16, - unit_distance );
+        
+        glEnd ();
+
+        unit_distance += 100;
+
+    }
 
     glBegin ( GL_LINES );
         
@@ -90,11 +153,13 @@ void drawSineWave (
     
     const double amplitude = 200,
     const double phase = 0,
-    const double frequency = 2 * PI * 10,
+    const double frequency = 10,
     const double duration_from = -1000,
     const double duration_to = 1000
 
 ) {
+
+    const double angular_frequency = 2 * PI * frequency;
 
     glBegin ( GL_POINTS );
 
@@ -102,7 +167,7 @@ void drawSineWave (
     
         for ( int duration = duration_from; duration < duration_to; duration ++ ) {
 
-            glVertex2f ( duration, amplitude * sin ( ( frequency * duration ) + phase ) );
+            glVertex2f ( duration, amplitude * sin ( ( angular_frequency * duration ) + phase ) );
 
         }
 
@@ -116,21 +181,20 @@ void render() {
 
     drawGrid ( 680, 680, 10 );
 
-    drawSineWave ();
+    drawText ( "X", 1, 30, 630 );
+    drawText ( "Y", 1, 630, 30 );
 
-    // drawCircle ( 30, -20, 20 );
-
-    // drawTriangle ( 100, 50, 50, 100, 100, 100 );
+    drawSineWave ( 300, 0, 8 );
 
     glFlush (); // render
 
 }
 
-int main ( int argc, char ** argv ) {
+int main ( int args_length, char ** args_context ) {
 
-    const int WIDTH = 680, HEIGHT = 680, UNIT = 10;
+    const int WIDTH = 680, HEIGHT = 680, UNIT = 100;
 
-    Display mainDisplay ( argc, argv, "Circle GL2", GLUT_SINGLE, WIDTH, HEIGHT, 100, 100 );
+    Display mainDisplay ( args_length, args_context, "Circle GL2", GLUT_SINGLE, WIDTH, HEIGHT, 100, 100 );
 
     mainDisplay.render ( render );
 
